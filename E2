@@ -1,0 +1,16 @@
+import xml.dom.minidom
+
+import os
+os.chdir("/Users/elianatschang/Desktop/Business-Process-Technology-Management")
+
+bpmnfile = xml.dom.minidom.parse('Assignment1.bpmn')
+
+startingpoint = bpmnfile.getElementsByTagName('startEvent')
+for starting_point in startingpoint:
+    sp_name = starting_point.getAttribute('name')
+    print('place ' + sp_name)
+
+endingpoint = bpmnfile.getElementsByTagName('endEvent')
+for ending_point in endingpoint:
+    ep_name = ending_point.getAttribute('name')
+    print('place ' + ep_name)
