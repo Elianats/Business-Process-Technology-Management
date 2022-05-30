@@ -1,0 +1,13 @@
+import xml.etree.ElementTree as ET
+import xml.dom.minidom
+
+import os
+os.chdir('/Users/elianatschang/Desktop/Business-Process-Technology-Management')
+bpmnfile = xml.dom.minidom.parse('Assignment1.bpmn')
+root = ET.parse("Assignment1.bpmn").getroot()
+
+process_id = bpmnfile.getElementsByTagName('process id')
+
+for task in root.findall('userTask'):
+    name = task.get('name')
+    print(name)

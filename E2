@@ -14,3 +14,20 @@ endingpoint = bpmnfile.getElementsByTagName('endEvent')
 for ending_point in endingpoint:
     ep_name = ending_point.getAttribute('name')
     print('place ' + ep_name)
+
+usertask = bpmnfile.getElementsByTagName('userTask')
+for user_task in usertask:
+    ut_name = user_task.getAttribute('name')
+    print('place ' + ut_name)
+
+servicetask = bpmnfile.getElementsByTagName('serviceTask')
+for service_task in servicetask:
+    st_name = service_task.getAttribute('name')
+    print('place ' + st_name)
+
+alltask = bpmnfile.getAttribute('name')
+
+for i in range(1,14):
+    print('trans t'+i + '\n   in ' + alltask[i].attributes['name'].value + '\n  out ' + alltask[i].attributes['name'].value)
+
+print('trans t1' + '\n   in ' + startingpoint[0].attributes['name'].value + '\n  out ' + usertask[0].attributes['name'].value)
