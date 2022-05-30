@@ -1,0 +1,15 @@
+import xml.etree.ElementTree as ET
+import xml.dom.minidom
+
+import os
+os.chdir('/Users/elianatschang/Desktop/Business-Process-Technology-Management')
+bpmnfile = xml.dom.minidom.parse('Assignment1.bpmn')
+
+tree = ET.parse('Assignment1.bpmn')
+root = tree.getroot()
+
+print(root.tag)
+print(root.attrib)
+
+for task in root.findall('.//[@completionQuantity="1"]/..process'):
+    print(task.attributes['name'].value)

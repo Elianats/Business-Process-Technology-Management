@@ -4,10 +4,27 @@ import xml.dom.minidom
 import os
 os.chdir('/Users/elianatschang/Desktop/Business-Process-Technology-Management')
 bpmnfile = xml.dom.minidom.parse('Assignment1.bpmn')
-root = ET.parse("Assignment1.bpmn").getroot()
+root = ET.parse("Assignment1.bpmn")
+
+for child in root:
+    for child_tag in child:
+        if (child_tag.tag == 'name'):
+            print(child_tag.tag, child_tag.attrib, child_tag.text)
 
 process_id = bpmnfile.getElementsByTagName('process id')
 
-for task in root.findall('userTask'):
-    name = task.get('name')
-    print(name)
+print(root)
+
+usertasks = bpmnfile.getElementsByTagName('userTask')
+for usertask in usertasks:
+    usertask.set = ("task")
+
+
+servicetasks = bpmnfile.getElementsByTagName('serviceTask')
+for servicetask in servicetasks:
+    servicetask.set = ("task")
+
+task = bpmnfile.getElementsByTagName('task')
+for tasks in task:
+    task_name = task.getAttribute('name')
+    print('place ' + task_name)

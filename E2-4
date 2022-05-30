@@ -1,0 +1,16 @@
+import xml.dom.minidom
+
+import os
+os.chdir("/Users/elianatschang/Desktop/Business-Process-Technology-Management")
+
+bpmnfile = xml.dom.minidom.parse('Assignment1.bpmn')
+
+startingpoint = bpmnfile.getElementsByTagName('startEvent')
+endingpoint = bpmnfile.getElementsByTagName('endEvent')
+usertask = bpmnfile.getElementsByTagName('userTask')
+servicetask = bpmnfile.getElementsByTagName('serviceTask')
+
+all_task = startingpoint + endingpoint + usertask +servicetask
+for alltask in all_task:
+    task_name = alltask.getAttribute('name')
+    print('place ' + task_name)
