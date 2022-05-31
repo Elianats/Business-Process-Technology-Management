@@ -25,12 +25,8 @@ for service_task in servicetask:
     st_name = service_task.getAttribute('name')
     print('place ' + st_name)
 
-all_task = startingpoint + endingpoint + usertask +servicetask
-for alltask in all_task:
-    task_name = alltask.getAttribute('name')
-    print('place ' + task_name)
-
-print('trans t1' + '\n   in ' + startingpoint[0].attributes['name'].value + '\n  out ' + usertask[0].attributes['name'].value)
+p =0
+print('trans t1' + '\n   in ' + startingpoint[p].attributes['name'].value + '\n  out ' + usertask[p].attributes['name'].value)
 
 
 for i in range(1,14):

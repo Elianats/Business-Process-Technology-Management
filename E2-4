@@ -13,4 +13,24 @@ servicetask = bpmnfile.getElementsByTagName('serviceTask')
 all_task = startingpoint + endingpoint + usertask +servicetask
 for alltask in all_task:
     task_name = alltask.getAttribute('name')
+    in_id = alltask.getElementsByTagName('incoming')
+    out_id = alltask.getElementsByTagName('outgoing')
+    all_id = alltask.getAttribute('id')
     print('place ' + task_name)
+    print(in_id)
+    print(out_id)
+
+sequenceflow = bpmnfile.getElementsByTagName('sequenceFlow')
+for s_flow in sequenceflow:
+    sf_id = s_flow.getAttribute('id')
+    re_id = s_flow.getAttribute('sourceRef')
+
+if in_id == sf_id and all_id == re_id:
+    in_tName = all_task.getAttribute('name')
+    print(in_tName)
+elif out_id == sf_id and all_id == re_id:
+    out_tName = all_task.getAttribute('name')
+    print(out_tName)
+        
+       
+

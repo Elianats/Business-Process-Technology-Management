@@ -1,0 +1,18 @@
+import xml.etree.ElementTree as ET
+import os
+os.chdir("/Users/elianatschang/Desktop/Business-Process-Technology-Management")
+
+tree = ET.parse('Assignment1.bpmn')
+root = tree.getroot()
+
+startingpoint = root.find('startEvent')
+endingpoint = root.find('endEvent')
+usertask = root.find('userTask')
+servicetask = root.find('serviceTask')
+
+all_task = startingpoint + endingpoint + usertask + servicetask
+for alltask in all_task:
+    task_name = alltask.find('name')
+    print('place ' + task_name)
+
+
