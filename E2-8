@@ -1,0 +1,13 @@
+import xml.etree.ElementTree as ET
+import sys
+
+import os
+os.chdir('/Users/elianatschang/Desktop/Business-Process-Technology-Management')
+
+root = ET.parse("Assignment1.bpmn").getroot()
+
+print(root.findall("."))
+
+for process in root.findall('{http://www.omg.org/spec/BPMN/20100524/MODEL}definitions'):
+    userTask = process.find('{http://www.omg.org/spec/BPMN/20100524/MODEL}userTask')
+    print(userTask.text)

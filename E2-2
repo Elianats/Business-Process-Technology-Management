@@ -6,10 +6,7 @@ os.chdir('/Users/elianatschang/Desktop/Business-Process-Technology-Management')
 bpmnfile = xml.dom.minidom.parse('Assignment1.bpmn')
 root = ET.parse("Assignment1.bpmn")
 
-for child in root:
-    for child_tag in child:
-        if (child_tag.tag == 'name'):
-            print(child_tag.tag, child_tag.attrib, child_tag.text)
+
 
 process_id = bpmnfile.getElementsByTagName('process id')
 
