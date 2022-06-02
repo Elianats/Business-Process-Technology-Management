@@ -1,0 +1,109 @@
+place GLOBAL_START init 1;
+place GLOBAL_END;
+place Status_1;
+place Status_2;
+place Status_5;
+place Status_6;
+place Status_7;
+place Status_8;
+place Status_9;
+place Status_10;
+place Status_11;
+place Status_12;
+place Status_13;
+place Status_14;
+place Status_15;
+place Status_16;
+place Status_17;
+place Status_18;
+place Status_19;
+place Status_20;
+place bigger_than_1hr;
+place Status_21;
+place bigger_than_25_mins;
+place Status_22;
+place bigger_than_25mins;
+place Status_23;
+place Status_24;
+
+
+trans Select_Starting_Block
+  in  GLOBAL_START
+  out  Status_1;
+
+trans Run_5km
+  in  Status_1
+  out  Status_6;
+
+trans Measure_Time
+  in  Status_6
+  out  Status_7;
+
+trans T_1
+  in  Status_7
+  out  Status_8, bigger_than_25mins;
+
+trans T_2
+  in  Status_8, Status_10
+  out  Status_11;
+
+trans Train
+  in  bigger_than_25mins
+  out  Status_21;
+
+trans Get_Starting_Number
+  in  Status_11
+  out  Status_5;
+
+trans Check_Time
+  in  Status_21
+  out  Status_9;
+
+trans Enter_end_of_the_working_time
+  in  Status_5
+  out  Status_12;
+
+trans T_4
+  in  Status_9
+  out  Status_22;
+
+trans Time_between_starting_time_and_the_end_of_your_workday
+  in  Status_12
+  out  bigger_than_1hr, Status_13;
+
+trans T_3
+  in  Status_22
+  out  Status_10, bigger_than_25_mins;
+
+trans Go_from_home
+  in  Status_13
+  out  Status_15;
+
+trans Go_from_Work
+  in  bigger_than_1hr
+  out  Status_14;
+
+trans T_5
+  in  Status_15, Status_14
+  out  Status_16;
+
+trans T_6
+  in  Status_16
+  out  Status_17, Status_18;
+
+trans Run
+  in  Status_17
+  out  Status_2;
+
+trans Drink
+  in  Status_18
+  out  Status_20;
+
+trans T_7
+  in  Status_20, Status_2
+  out  Status_19;
+
+trans Receive_running_time
+  in  Status_19
+  out  GLOBAL_END;
+
