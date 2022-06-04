@@ -1,10 +1,10 @@
-
+#type in #python3 convert.py --input ./Assignment_new.bpmn --output ./output.tpn #to convert
 import xml.etree.ElementTree as ET
-import os
-os.chdir('/Users/elianatschang/Desktop/Business-Process-Technology-Management');
 
-def main():
-    datapath = './Assignment1-9.bpmn'
+
+def main(input:str, output:str):
+    datapath = input
+    outputpath = output
     tree = ET.parse(datapath);
     root = tree.getroot();
     reduntantString = root.tag.split("}")[0] + "}";
@@ -26,7 +26,7 @@ def main():
             ProcessNode = childofRoot;
             break
         
-    
+    #init all Nodes
     TaskType = ["userTask","serviceTask","exclusiveGateway","parallelGateway"]
     for childofProcess in ProcessNode:
         ChildName = get_correctTag(childofProcess)
@@ -47,9 +47,10 @@ def main():
             tmp_sourceRef = childofProcess.attrib['sourceRef']
             tmp_targetRef = childofProcess.attrib['targetRef']
             
-            newSequenceFlow = SequenceFlow(name=tmp_name, id=tmp_id, sourceRef=tmp_sourceRef, targetRef=tmp_targetRef)
+            newSequenceFlow = SequenceFlow(name=tmp_name, id=tmp_id , sourceRef=[],targetRef=[])
+            newSequenceFlow.incoming.append(tmp_sourceRef)
+            newSequenceFlow.outgoing.append(tmp_targetRef)
             sequenceFlows.append(newSequenceFlow)
-            Places.append(newSequenceFlow.name)
             
         elif ChildName == "endEvent":
             EndPoint = TaskNode(type="endpoint", name = childofProcess.attrib["name"], id=childofProcess.attrib["id"],outgoing=[], incoming=[])
@@ -58,27 +59,76 @@ def main():
                     EndPoint.incoming.append(childofEndEvent.text)
             
             Tasks.append(EndPoint)
-            Places.append(EndPoint.name)
             
             
         elif ChildName == "startEvent":
             StartPoint = TaskNode(type="startpoint", name=childofProcess.attrib["name"], id=childofProcess.attrib["id"],outgoing=[],incoming=[])
             for childofStartEvent in childofProcess:
                 if get_correctTag(childofStartEvent)=="outgoing":
-                    childofStartEvent.text
                     
                     StartPoint.outgoing.append(childofStartEvent.text)
             
             Tasks.append(StartPoint)
-            Places.append(StartPoint.name)
             
-
+    for Task in Tasks:
+        for index, inComeing in enumerate(Task.incoming):
+            for seq in sequenceFlows:
+                if seq.id == inComeing:
+                    Task.incoming[index] = seq
+        for index, outGoing in enumerate(Task.outgoing):
+            for seq in sequenceFlows:
+                if seq.id == outGoing:
+                    Task.outgoing[index] = seq
+    for seq in sequenceFlows:
+        for Task in Tasks:
+            if seq.incoming[0] == Task.id:
+                seq.incoming[0]=Task
+            if seq.outgoing[0] == Task.id:
+                seq.outgoing[0]= Task
+    delList = list()        
+    for seq in sequenceFlows:
+        if seq.outgoing[0].type == "exclusiveGateway" or seq.outgoing[0].type == "parallelGateway":
+            gateway = seq.outgoing[0]
+            parentNode = seq.incoming[0]
+            for index,outgoing in enumerate(parentNode.outgoing):
+                if outgoing == seq:
+                    parentNode.outgoing[index] = gateway
+                    gateway.incoming.remove(seq)
+                    gateway.incoming.append(parentNode)
+            delList.append(seq)
+                    
+        if seq.incoming[0].type == "exclusiveGateway" or seq.incoming[0].type == "parallelGateway":
+            parentNode = seq.outgoing[0]
+            gateway = seq.incoming[0]
+                
+            for index,outgoing in enumerate(gateway.outgoing):
+                if outgoing == seq:
+                    gateway.outgoing[index] = parentNode
+                    parentNode.incoming.remove(seq)
+                    parentNode.incoming.append(gateway)
+            delList.append(seq)
+    
+    for each in delList:
+        sequenceFlows.remove(each)
+    newTask = list()
+    for task in Tasks:
+        if task.type != "exclusiveGateway" and task.type != "parallelGateway":
+            newTask.append(task)
+        else:
+            sequenceFlows.append(task)
+    Places = list()
+    Places.append(StartPoint.name)
+    Places.append(EndPoint.name)
+    for each in sequenceFlows:
+        Places.append(each.name)
+            
+    Tasks = newTask
+    
     transDict = {}
     TraverseSet = set()
     
-    path = "./output/output.tpn"
-    with open(path, 'w') as tpnfile:
-
+    
+    with open(outputpath, 'w') as tpnfile:
         Pending = [StartPoint]
         flag = 0
         while 1:
@@ -89,9 +139,9 @@ def main():
                     flag = 1
                     break
 
-                if isinstance(eachPending,SequenceFlow):
+                if isinstance(eachPending,SequenceFlow) or eachPending.type == "exclusiveGateway" or eachPending.type == "parallelGateway":
                     for Task in Tasks:
-                        if eachPending.outgoing == Task.id :
+                        if Task in eachPending.outgoing :
                             if Task.name not in transDict:
                                 transDict[Task.name] = {
                                 "in":set(),
@@ -99,7 +149,7 @@ def main():
                             }
                             transDict[Task.name]["in"].add(eachPending.name)
                     
-                            if (Task) not in TraverseSet:
+                            if Task not in TraverseSet:
                                 Pending.append(Task)
                         
                 else:
@@ -112,7 +162,7 @@ def main():
 
                     for eachOutgoing in eachPending.outgoing:
                         for eachSequenceFlow in sequenceFlows: #比對每個status
-                            if eachOutgoing == eachSequenceFlow.id:
+                            if eachOutgoing == eachSequenceFlow:
                                 transDict[eachPending.name]["out"].add(eachSequenceFlow.name)
                                 if eachSequenceFlow not in TraverseSet:
                                     Pending.append(eachSequenceFlow)
@@ -120,7 +170,7 @@ def main():
         
         deletePending = []
         for eachSequenceFlow in sequenceFlows:            
-            if StartPoint.outgoing[0] == eachSequenceFlow.id:
+            if StartPoint.outgoing[0].id == eachSequenceFlow.id:
                 deletePending.append(eachSequenceFlow.name)
                 for eachTask in Tasks:
                     if eachSequenceFlow.outgoing == eachTask.id:
@@ -128,13 +178,12 @@ def main():
                         transDict[eachTask.name]["in"].add(StartPoint.name)
                         
         for eachSequenceFlow in sequenceFlows:            
-            if EndPoint.incoming[0] == eachSequenceFlow.id:
+            if EndPoint.incoming[0].id == eachSequenceFlow.id:
                 deletePending.append(eachSequenceFlow.name)
                 for eachTask in Tasks:
                     if eachSequenceFlow.incoming == eachTask.id:
                         transDict[eachTask.name]["out"] = set()
                         transDict[eachTask.name]["out"].add(EndPoint.name)
-        
         
         
         for eachPlace in Places:
@@ -155,6 +204,10 @@ def main():
                 if key == "in":
                     tpnfile.write('  in  ')
                     for index, value in enumerate(values):
+                        if value == deletePending[0]:
+                            value = StartPoint.name
+                        if value == deletePending[1]:
+                            value == EndPoint.name
                         if len(values) == 1:
                             tpnfile.write(value)
                         else:
@@ -166,8 +219,10 @@ def main():
                     
                     
                 else:
-                    tpnfile.write("  out ")
+                    tpnfile.write("  out  ")
                     for index, value in enumerate(values):
+                        if value in deletePending:
+                            value = EndPoint.name
                         if len(values) == 1:
                             tpnfile.write(value+";")
                         else:
@@ -179,13 +234,10 @@ def main():
                 
                 tpnfile.write("\n")
     
-    for k,v in transDict.items():
-        print("{}:".format(k))
-        print(v)
-        
-    for eachTask in Tasks:
-        if eachTask.name == "T_4":
-            print(eachTask.id)
+    # for k,v in transDict.items():
+    #     print("{}:".format(k))
+    #     print(v)
+
                 
     tpnfile.close()
     
@@ -215,6 +267,9 @@ class TaskNode:
             return newName
         else:
             return name
+        
+    def __repr__(self):
+        return "class TN "+ self.name
 
 class SequenceFlow:
     """_summary_
@@ -223,7 +278,7 @@ class SequenceFlow:
     """
     StatusNumber = 1
     
-    def __init__(self, name="", id="", sourceRef="", targetRef=""):
+    def __init__(self, name="", id="", sourceRef=[], targetRef=[]):
         self.name = self.getName(name)
         self.id = id
         self.incoming = sourceRef
@@ -242,12 +297,19 @@ class SequenceFlow:
             return newName
         else:
             return name
+    def __repr__(self):
+        return "class SF "+ self.name
 
         
 
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    parser = argparse.ArgumentParser(prog='argparse_template.py', description='Tutorial') 
+    parser.add_argument('--input', '-in', default='./data/Assignment1.xml', type=str, required=True,  help='[type:string]Input Directory')
+    parser.add_argument('--output', '-out', default='./output/output.tpn', type=str, required=True,  help='[type:string]Output Directory')
+    args = parser.parse_args()
+    main(input=args.input, output=args.output)
     
     

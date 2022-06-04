@@ -4,7 +4,7 @@ import os
 os.chdir('/Users/elianatschang/Desktop/Business-Process-Technology-Management');
 
 def main():
-    datapath = './Assignment1-9.bpmn'
+    datapath = './assignment1-6.bpmn'
     tree = ET.parse(datapath);
     root = tree.getroot();
     reduntantString = root.tag.split("}")[0] + "}";
@@ -27,7 +27,8 @@ def main():
             break
         
     
-    TaskType = ["userTask","serviceTask","exclusiveGateway","parallelGateway"]
+    TaskType = ["userTask","serviceTask"]
+    PlaceType = ["exclusiveGateway","parallelGateway"]
     for childofProcess in ProcessNode:
         ChildName = get_correctTag(childofProcess)
         if ChildName in TaskType:
@@ -40,7 +41,17 @@ def main():
                     newTask.outgoing.append(childofTask.text)
             Tasks.append(newTask)
         
-                    
+        elif ChildName in PlaceType:
+            newPlace = PlaceNode(name=childofProcess.attrib['name'], id=childofProcess.attrib['id'], type = ChildName, outgoing=[], incoming=[])
+            for childofTask in childofProcess:
+                ChildofTaskName = get_correctTag(childofTask)
+                if ChildofTaskName == "incoming":
+                    newTask.incoming.append(childofTask.text)
+                elif ChildofTaskName == "outgoing":
+                    newTask.outgoing.append(childofTask.text)
+            Places.append(newPlace.name)
+            
+
         elif ChildName == "sequenceFlow":
             tmp_name = childofProcess.attrib['name']
             tmp_id = childofProcess.attrib['id']
@@ -212,6 +223,26 @@ class TaskNode:
         if name == "":
             newName = "T_{}".format(TaskNode.T)
             TaskNode.T +=1
+            return newName
+        else:
+            return name
+
+class PlaceNode:
+    """_summary_
+        Define instance of serviceTask/userTask
+        Only keeps the infomation we need.
+    """
+    T = 1
+    def __init__(self, type="",name="", id="", outgoing=[], incoming=[]):
+        self.type = type
+        self.name = self.getName(name)
+        self.id = id
+        self.outgoing = outgoing
+        self.incoming = incoming
+    def getName(self,name):
+        if name == "":
+            newName = "P_{}".format(PlaceNode.T)
+            PlaceNode.P +=1
             return newName
         else:
             return name

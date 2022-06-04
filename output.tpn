@@ -1,0 +1,79 @@
+place GLOBAL_START init 1;
+place GLOBAL_END;
+place Status_1;
+place Status_5;
+place Status_6;
+place Bigger_than_25mins?;
+place T_1;
+place Bigger_than_25mins?;
+place T_2;
+place Bigger_than_1hr?;
+place T_3;
+place T_4;
+place T_5;
+
+
+trans Select_Starting_Block
+  in  GLOBAL_START
+  out  Status_1;
+
+trans Run_5km
+  in  Status_1
+  out  Status_6;
+
+trans Measure_Time
+  in  Status_6
+  out  Bigger_than_25mins?;
+
+trans Train
+  in  Bigger_than_25mins?
+  out  T_2;
+
+trans Success
+  in  Bigger_than_25mins?
+  out  T_1;
+
+trans Check_Time
+  in  T_2
+  out  Bigger_than_25mins?;
+
+trans Get_Starting_Number
+  in  T_1
+  out  Status_5;
+
+trans Train_Again
+  in  Bigger_than_25mins?
+  out  T_2;
+
+trans Success_1
+  in  Bigger_than_25mins?
+  out  T_1;
+
+trans Enter_end_of_the_working_time
+  in  Status_5
+  out  Bigger_than_1hr?;
+
+trans Go_from_Work
+  in  Bigger_than_1hr?
+  out  T_3;
+
+trans Go_from_home
+  in  Bigger_than_1hr?
+  out  T_3;
+
+trans Start_Night_Run
+  in  T_3
+  out  T_4;
+
+trans Run
+  in  T_4
+  out  T_5;
+
+trans Drink
+  in  T_4
+  out  T_5;
+
+trans Receive_running_time
+  in  T_5
+  out  GLOBAL_END;
+
