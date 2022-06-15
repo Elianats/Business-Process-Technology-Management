@@ -1,0 +1,29 @@
+{
+  "components": [
+    {
+      "text": "# Measure Time",
+      "type": "text",
+      "id": "Field_0k25ah9"
+    },
+    {
+      "label": "Enter Running Time",
+      "type": "textfield",
+      "id": "Field_157fkc8",
+      "key": "entertime",
+      "validate": {
+        "maxLength": 100,
+        "minLength": 1,
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "entertime",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.17.0",
+  "schemaVersion": 4
+}

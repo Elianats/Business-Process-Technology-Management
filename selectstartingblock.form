@@ -1,0 +1,29 @@
+{
+  "components": [
+    {
+      "values": [
+        {
+          "value": "Garching",
+          "label": "TUM Garching"
+        },
+        {
+          "label": "TUM Main Campus",
+          "value": "Main Campus"
+        }
+      ],
+      "label": "Select Starting Block",
+      "type": "select",
+      "id": "Field_1pkls1r",
+      "key": "startingblock"
+    }
+  ],
+  "type": "default",
+  "id": "selectblock",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.17.0",
+  "schemaVersion": 4
+}

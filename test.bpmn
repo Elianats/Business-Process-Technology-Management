@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_00omtff" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <bpmn:process id="Process_0d46qqv" name="test" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0bkn9x7</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0bkn9x7" sourceRef="StartEvent_1" targetRef="selectblock" />
+    <bpmn:endEvent id="Event_0qrnygf">
+      <bpmn:incoming>Flow_0v71owo</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="selectblock" name="Select Starting Block" camunda:formRef="selectblock" camunda:formRefBinding="latest">
+      <bpmn:incoming>Flow_0bkn9x7</bpmn:incoming>
+      <bpmn:outgoing>Flow_1xruu54</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1xruu54" sourceRef="selectblock" targetRef="Activity_1pqb43k" />
+    <bpmn:sequenceFlow id="Flow_1k6def3" sourceRef="Activity_1pqb43k" targetRef="entertime" />
+    <bpmn:serviceTask id="Activity_1pqb43k" name="Run 5k and measure running time">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:connectorId>connect</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1xruu54</bpmn:incoming>
+      <bpmn:outgoing>Flow_1k6def3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0v71owo" sourceRef="entertime" targetRef="Event_0qrnygf" />
+    <bpmn:userTask id="entertime" name="Enter Running Time" camunda:formRef="entertime" camunda:formRefBinding="latest" camunda:assignee="demo">
+      <bpmn:incoming>Flow_1k6def3</bpmn:incoming>
+      <bpmn:outgoing>Flow_0v71owo</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0d46qqv">
+      <bpmndi:BPMNEdge id="Flow_0bkn9x7_di" bpmnElement="Flow_0bkn9x7">
+        <di:waypoint x="178" y="117" />
+        <di:waypoint x="230" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xruu54_di" bpmnElement="Flow_1xruu54">
+        <di:waypoint x="330" y="117" />
+        <di:waypoint x="370" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1k6def3_di" bpmnElement="Flow_1k6def3">
+        <di:waypoint x="470" y="117" />
+        <di:waypoint x="510" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0v71owo_di" bpmnElement="Flow_0v71owo">
+        <di:waypoint x="610" y="117" />
+        <di:waypoint x="1312" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="142" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0shu90k_di" bpmnElement="selectblock">
+        <dc:Bounds x="230" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0qrnygf_di" bpmnElement="Event_0qrnygf">
+        <dc:Bounds x="1312" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_197w0rm_di" bpmnElement="Activity_1pqb43k">
+        <dc:Bounds x="370" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1gt6iwl_di" bpmnElement="entertime">
+        <dc:Bounds x="510" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
