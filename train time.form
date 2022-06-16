@@ -1,15 +1,15 @@
 {
   "components": [
     {
-      "text": "# Measure Running Time\n* Be aware that the number should be between 0 and 100",
+      "text": "# Check Time Again\n* Be aware that the number should be between 0 and 100",
       "type": "text",
-      "id": "Field_0k25ah9"
+      "id": "Field_022uxvi"
     },
     {
       "label": "Enter Running Time",
       "type": "number",
-      "id": "Field_1a88bql",
-      "key": "firsttime",
+      "id": "Field_015y80m",
+      "key": "traintime",
       "validate": {
         "min": 0,
         "max": 100,
@@ -18,7 +18,7 @@
     }
   ],
   "type": "default",
-  "id": "firsttime",
+  "id": "traintime",
   "exporter": {
     "name": "Camunda Modeler",
     "version": "5.0.0"

@@ -1,0 +1,18 @@
+{
+  "components": [
+    {
+      "text": "${firsttime}",
+      "type": "text",
+      "id": "Field_1bysn8d"
+    }
+  ],
+  "type": "default",
+  "id": "testform",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.17.0",
+  "schemaVersion": 4
+}
