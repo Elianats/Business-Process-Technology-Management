@@ -1,0 +1,24 @@
+{
+  "components": [
+    {
+      "text": "# You're starting from TUM Main Campus\nYour starting number is TMC001",
+      "type": "text",
+      "id": "Field_0a6tlam"
+    },
+    {
+      "label": "Proceed?",
+      "type": "checkbox",
+      "id": "Field_1tcp2p4",
+      "key": "field_1lgqkql"
+    }
+  ],
+  "type": "default",
+  "id": "nomain",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.17.0",
+  "schemaVersion": 4
+}

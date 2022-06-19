@@ -1,0 +1,23 @@
+{
+  "components": [
+    {
+      "text": "# Enter time in between\n* Please only type in minutes\n* Night run starts at 19:00\n* ex. End of Work = 18:30, type in *30",
+      "type": "text",
+      "id": "Field_0umsvqt"
+    },
+    {
+      "type": "textfield",
+      "id": "Field_1ih8jd7",
+      "key": "timebetween"
+    }
+  ],
+  "type": "default",
+  "id": "timebetween",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.17.0",
+  "schemaVersion": 4
+}

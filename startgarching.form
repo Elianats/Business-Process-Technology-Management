@@ -1,14 +1,13 @@
 {
   "components": [
     {
-      "label": "{{$scope.firsttime}}",
-      "type": "textfield",
-      "id": "Field_0vtgcvi",
-      "key": "{{$scope.firsttime}}"
+      "text": "# Start from Garching",
+      "type": "text",
+      "id": "Field_1qkdy7f"
     }
   ],
   "type": "default",
-  "id": "testform",
+  "id": "startgarching",
   "exporter": {
     "name": "Camunda Modeler",
     "version": "5.0.0"

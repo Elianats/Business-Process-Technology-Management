@@ -1,20 +1,21 @@
 {
   "components": [
     {
-      "values": [
-        {
-          "value": "Garching",
-          "label": "TUM Garching"
-        },
-        {
-          "label": "TUM Main Campus",
-          "value": "Main Campus"
-        }
-      ],
-      "label": "Select Starting Block",
-      "type": "select",
-      "id": "Field_1pkls1r",
-      "key": "startingblock"
+      "text": "# Choose your Starting Block\n* Please only choose one",
+      "type": "text",
+      "id": "Field_1lc5co1"
+    },
+    {
+      "label": "Garching",
+      "type": "checkbox",
+      "id": "Field_0xxzoeb",
+      "key": "garching"
+    },
+    {
+      "label": "Main Campus",
+      "type": "checkbox",
+      "id": "Field_14te3bk",
+      "key": "main"
     }
   ],
   "type": "default",

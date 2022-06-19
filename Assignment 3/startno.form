@@ -1,14 +1,13 @@
 {
   "components": [
     {
-      "label": "{{$scope.firsttime}}",
-      "type": "textfield",
-      "id": "Field_0vtgcvi",
-      "key": "{{$scope.firsttime}}"
+      "text": "# Starting Number\n* You will get your starting number depending on which campus you start from.",
+      "type": "text",
+      "id": "Field_153p0tk"
     }
   ],
   "type": "default",
-  "id": "testform",
+  "id": "startno",
   "exporter": {
     "name": "Camunda Modeler",
     "version": "5.0.0"

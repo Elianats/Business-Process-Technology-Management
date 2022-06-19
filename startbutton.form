@@ -1,14 +1,19 @@
 {
   "components": [
     {
-      "label": "{{$scope.firsttime}}",
-      "type": "textfield",
-      "id": "Field_0vtgcvi",
-      "key": "{{$scope.firsttime}}"
+      "text": "# Start Night Run?",
+      "type": "text",
+      "id": "Field_119jjsz"
+    },
+    {
+      "label": "Yes",
+      "type": "checkbox",
+      "id": "Field_09bwp25",
+      "key": "field_1qcuw72"
     }
   ],
   "type": "default",
-  "id": "testform",
+  "id": "start",
   "exporter": {
     "name": "Camunda Modeler",
     "version": "5.0.0"

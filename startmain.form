@@ -1,14 +1,13 @@
 {
   "components": [
     {
-      "label": "{{$scope.firsttime}}",
-      "type": "textfield",
-      "id": "Field_0vtgcvi",
-      "key": "{{$scope.firsttime}}"
+      "text": "# Start from Main Campus",
+      "type": "text",
+      "id": "Field_1h8f353"
     }
   ],
   "type": "default",
-  "id": "testform",
+  "id": "startmain",
   "exporter": {
     "name": "Camunda Modeler",
     "version": "5.0.0"

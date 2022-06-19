@@ -1,14 +1,19 @@
 {
   "components": [
     {
-      "label": "{{$scope.firsttime}}",
-      "type": "textfield",
-      "id": "Field_0vtgcvi",
-      "key": "{{$scope.firsttime}}"
+      "text": "# Go from Home",
+      "type": "text",
+      "id": "Field_09f44oa"
+    },
+    {
+      "label": "Proceed",
+      "type": "checkbox",
+      "id": "Field_0p45wk2",
+      "key": "field_12v2fw7"
     }
   ],
   "type": "default",
-  "id": "testform",
+  "id": "fromhome",
   "exporter": {
     "name": "Camunda Modeler",
     "version": "5.0.0"
